@@ -1,3 +1,15 @@
+function getCurrentScript(){
+	var src = '';
+	if(typeof(document.currentScript) === 'undefined'){
+		/*document.currentScript is not supported by IE and other older browsers*/
+		var scripts = document.getElementsByTagName('script');
+		src = scripts[scripts.length - 1].src;
+	}else{
+		src = document.currentScript.src;
+	}
+	return src.substr(0, src.lastIndexOf('/'));
+}
+
 Module = function(module, depend, obj){
 	this.module = module;
 	this.loaded = false;
@@ -38,6 +50,11 @@ Module.prototype.load = function(){
 $nyaa = {
 	version: '0.2.0',
 	platform: 'development',
+	_system_modules: ['ajax'],
+	base: {
+		system: getCurrentScript(),
+		custom: getCurrentScript(),
+	},
 
 	_msg: function(msg, handler){
 		return '[nyaaJS-' + this.version + '] ' + handler + ': ' + msg;
@@ -81,7 +98,9 @@ $nyaa = {
 		}while(last_loaded_module_count != this._loaded_module_list.length);
 	},
 	_module_to_uri: function(module){
-		return this.config.base + '/modules/nyaaJS.module.' + module + '.js';
+		if(this._system_modules.indexOf(module) !== -1)
+			return this.base.system + '/modules/nyaaJS.module.' + module + '.js'
+		return this.base.custom + '/' + module + '.js';
 	},
 	_use: function(module){
 		if(this._fetched_module_list.indexOf(module) !== -1)
@@ -113,12 +132,15 @@ $nyaa = {
 			return false;
 		}
 		if(typeof(this.config.base) === 'undefined'){
-			this.error('$nyaa.config.base not defined');
-			return false;
-		}
-		if(typeof(this.config.base) !== 'string'){
+			this.warning('$nyaa.config.base not defined, useing "' + this.base.custom + '" instead');
+		}else if(typeof(this.config.base) !== 'string'){
 			this.error('$nyaa.config.base should be a string');
 			return false;
+		}else{
+			this.base.custom = this.config.base;
+			if(this.base.custom.lastIndexOf('/') === this.base.custom.length + 1){
+				this.base.custom = this.base.custom.substr(0, this.base.custom.length - 1);
+			}
 		}
 		if(typeof(this.config.modules) === 'undefined'){
 			this.warning('$nyaa.config.modules not defined');
