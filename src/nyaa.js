@@ -99,7 +99,7 @@ $nyaa = {
 	},
 	_module_to_uri: function(module){
 		if(this._system_modules.indexOf(module) !== -1)
-			return this.base.system + '/modules/nyaaJS.module.' + module + '.js'
+			return this.base.system + '/modules/nyaa.' + module + '.js'
 		return this.base.custom + '/' + module + '.js';
 	},
 	_use: function(module){
