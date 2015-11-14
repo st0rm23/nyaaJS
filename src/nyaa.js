@@ -1,10 +1,3 @@
-Object.prototype.extend = function(source){
-	for(var index in source){
-		this[index] = source[index];
-	}
-	return this;
-}
-
 Module = function(module, depend, obj){
 	this.module = module;
 	this.loaded = false;
@@ -14,6 +7,13 @@ Module = function(module, depend, obj){
 	this.extend(obj);
 	
 	this.nyaa.debug('Module object "'+module+'" is created');
+}
+
+Module.prototype.extend = function(source){
+	for(var index in source){
+		this[index] = source[index];
+	}
+	return this;
 }
 
 Module.prototype.load = function(){
