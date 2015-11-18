@@ -156,5 +156,13 @@ $nyaa = {
 			var module = this.config.modules[i];
 			this._use(module);
 		}
+	},
+	
+	event: function(e, d){
+		for(var i = 0; i < this._registered_module_list.length; ++i){
+			if(typeof($nyaa[this._registered_module_list[i]]['on' + e]) !== 'undefined'){
+				$nyaa[this._registered_module_list[i]]['on' + e](d);
+			}
+		}
 	}
 };
