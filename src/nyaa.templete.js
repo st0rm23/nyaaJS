@@ -8,7 +8,6 @@ $nyaa.register(
 				return false;
 			}
 			this.nyaa.debug('templete onLoad');
-			console.log(this);
 		},
 		use: function(name, data){
 			var html = $('templetes > templete[name='+name+']').first().html();

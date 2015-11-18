@@ -8,7 +8,6 @@ $nyaa.register(
 				return false;
 			}
 			this.nyaa.debug('ajax onLoad');
-			console.log(this);
 		},
 		_ajax: function(method, url, data, success, error){
 			$.ajax({

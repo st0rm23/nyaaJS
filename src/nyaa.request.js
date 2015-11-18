@@ -8,7 +8,6 @@ $nyaa.register(
 				return false;
 			}
 			this.nyaa.debug('request onLoad');
-			console.log(this);
 			$nyaa.ready(function(){
 				window.onhashchange = function(){
 					$nyaa.request._hash = false;
