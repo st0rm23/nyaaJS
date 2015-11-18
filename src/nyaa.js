@@ -49,7 +49,7 @@ Module.prototype.load = function(){
 
 $nyaa = {
 	version: '0.2.0',
-	platform: 'development',
+	platform: 'production',
 	_system_modules: ['ajax'],
 	base: {
 		system: getCurrentScript(),
