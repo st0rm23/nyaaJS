@@ -96,6 +96,10 @@ $nyaa = {
 				this[this._registered_module_list[i]].load();
 			}
 		}while(last_loaded_module_count != this._loaded_module_list.length);
+		
+		if(this._loaded_module_list.length === this._registered_module_list.length && this._loaded_module_list.length === this._fetched_module_list.length){
+			this._ready();
+		}
 	},
 	_module_to_uri: function(module){
 		if(this._system_modules.indexOf(module) !== -1)
@@ -164,5 +168,16 @@ $nyaa = {
 				$nyaa[this._registered_module_list[i]]['on' + e](d);
 			}
 		}
+	},
+	
+	_readyCallList: [],
+	_ready: function(){
+		var f;
+		while(f = this._readyCallList.shift()){
+			f();
+		}
+	},
+	ready: function(f){
+		this._readyCallList.push(f);
 	}
 };
