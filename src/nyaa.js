@@ -48,7 +48,7 @@ Module.prototype.load = function(){
 };
 
 $nyaa = {
-	version: '0.3.0',
+	version: '0.3.1',
 	platform: 'production',
 	_system_modules: ['ajax', 'request', 'templete'],
 	base: {
