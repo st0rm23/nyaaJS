@@ -24,7 +24,7 @@ $nyaa.register(
 				dataType: 'json'
 			});
 		},
-		get: function(url, data, success, error){
+		post: function(url, data, success, error){
 			if(typeof(data) === 'undefined') data = {};
 			if(typeof(data) === 'function'){
 				error = success;
@@ -34,7 +34,7 @@ $nyaa.register(
 			data[$('meta[name=csrf-param]').attr('content')] = $('meta[name=csrf-token]').attr('content');
 			this._ajax('POST', url, data, success, error);
 		},
-		post: function(url, data, success, error){
+		get: function(url, data, success, error){
 			if(typeof(data) === 'undefined') data = {};
 			if(typeof(data) === 'function'){
 				error = success;
